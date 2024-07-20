@@ -1,15 +1,42 @@
 def show_menu():
+    """Display the menu options to the user."""
     print("\nMenu:")
     print("1. Add an item")
     print("2. Mark as done")
     print("3. View the items")
     print("4. Exit the menu")
 
+def show_items(data):
+    """Display the to-do items."""
+    if not data:
+        print("No items in the to-do list.")
+    else:
+        for i, task in enumerate(data, start=1):
+            status = "Done" if task["done"] else "Not Done"
+            print(f"{i}. {task['task']} [{status}]")
+
+def mark_done(data, item):
+    """Mark a to-do item as done."""
+    for task in data:
+        if task["task"] == item:
+            task["done"] = True
+            print(f"Marked item as done: {item}")
+            return
+    print("Item does not exist")
+
+def check_incomplete_tasks(data):
+    """Check if there are any incomplete tasks."""
+    for task in data:
+        if not task["done"]:
+            return False
+    return True
+
 def main():
+    """Main function to run the to-do list application."""
     user_input = ''
     data = []
 
-    while user_input != "4":
+    while True:
         show_menu()
         user_input = input("\nEnter choice: ")
 
@@ -20,28 +47,24 @@ def main():
 
         elif user_input == "2":
             item = input("What is to be marked as done? ")
-            for task in data:
-                if task["task"] == item:
-                    task["done"] = True
-                    print(f"Marked item as done: {item}")
-                    break
-            else:
-                print("Item does not exist")
+            mark_done(data, item)
 
         elif user_input == "3":
-            if not data:
-                print("No items in the to-do list.")
-            else:
-                for i, task in enumerate(data, start=1):
-                    status = "Done" if task["done"] else "Not Done"
-                    print(f"{i}. {task['task']} [{status}]")
+            show_items(data)
 
         elif user_input == "4":
-            print("Goodbye")
+            if not check_incomplete_tasks(data):
+                confirm_exit = input("You have incomplete tasks. Do you still want to exit? (yes/no): ").lower()
+                if confirm_exit == "yes":
+                    print("Goodbye")
+                    break
+                else:
+                    continue
+            else:
+                print("Goodbye")
+                break
         else:
             print("Please enter one of 1, 2, 3, or 4")
 
 if __name__ == "__main__":
     main()
-
-
