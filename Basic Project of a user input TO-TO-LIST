@@ -1,0 +1,47 @@
+def show_menu():
+    print("\nMenu:")
+    print("1. Add an item")
+    print("2. Mark as done")
+    print("3. View the items")
+    print("4. Exit the menu")
+
+def main():
+    user_input = ''
+    data = []
+
+    while user_input != "4":
+        show_menu()
+        user_input = input("\nEnter choice: ")
+
+        if user_input == "1":
+            item = input("What is to be done? ")
+            data.append({"task": item, "done": False})
+            print(f"Added item: {item}")
+
+        elif user_input == "2":
+            item = input("What is to be marked as done? ")
+            for task in data:
+                if task["task"] == item:
+                    task["done"] = True
+                    print(f"Marked item as done: {item}")
+                    break
+            else:
+                print("Item does not exist")
+
+        elif user_input == "3":
+            if not data:
+                print("No items in the to-do list.")
+            else:
+                for i, task in enumerate(data, start=1):
+                    status = "Done" if task["done"] else "Not Done"
+                    print(f"{i}. {task['task']} [{status}]")
+
+        elif user_input == "4":
+            print("Goodbye")
+        else:
+            print("Please enter one of 1, 2, 3, or 4")
+
+if __name__ == "__main__":
+    main()
+
+
