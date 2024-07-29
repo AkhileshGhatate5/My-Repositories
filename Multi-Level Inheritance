@@ -1,0 +1,32 @@
+class Car:
+    @staticmethod
+    def start():
+        print("car started")
+
+    @staticmethod
+    def stop():
+        print("car stopped")
+
+class Toyotacar(Car):
+    def __init__(self,brand,name):
+        self.brand=brand
+        self.name=name
+
+class Fortuner(Toyotacar):
+    def __init__(self, brand, name, type):
+        super().__init__(brand,name)
+        self.type=type
+
+class Varient(Fortuner):
+    def __init__(self, brand, name,type, low, middle, top):
+        super().__init__(brand,name,type)
+        self.low=low
+        self.middle=middle
+        self.top=top
+        
+    def details(self):
+        return f"{self.brand} {self.name} {self.type} {self.middle} {self.low} {self.top}"
+
+c1=Varient("Toyota","fortuner","petrol","low","middle","top")
+c1.start()
+print(c1.details())
