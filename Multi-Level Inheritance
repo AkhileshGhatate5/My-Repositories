@@ -14,7 +14,7 @@ class Toyotacar(Car):
 
 class Fortuner(Toyotacar):
     def __init__(self, brand, name, type):
-        super().__init__(brand,name)
+        super().__init__(brand,name) #Super used here to call the properties of class Toyotacar 
         self.type=type
 
 class Varient(Fortuner):
